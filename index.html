@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هلو غزل</title>
+    <style>
+        body {
+            background: #ffc0cb;
+            font-family: Tahoma;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0;
+            overflow: hidden;
+        }
+        
+        /* قلوب متحركة كثيرة وواضحة */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            text-align: center;
+            width: 320px;
+            position: relative;
+            z-index: 1;
+        }
+        .card {
+            background: rgba(255, 214, 231, 0.95);
+            padding: 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(255,105,180,0.4);
+            backdrop-filter: blur(5px);
+        }
+        .kitty-img {
+            width: 100%;
+            border-radius: 15px;
+            height: 220px;
+            object-fit: cover;
+        }
+        .btn {
+            width: 90%;
+            padding: 14px;
+            margin: 8px auto;
+            border: 2px solid #ff69b4;
+            border-radius: 25px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+        }
+        .btn-dark {
+            background: #2b2b2b;
+            color: white;
+        }
+        .btn-pink {
+            background: #ff69b4;
+            color: white;
+            box-shadow: 0 0 15px #ff69b4;
+        }
+        .big-heart {
+            font-size: 80px;
+            color: #ff1493;
+            animation: pulse 1s infinite;
+            cursor: pointer;
+            text-shadow: 0 0 20px #ff69b4;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1) }
+            50% { transform: scale(1.1) }
+            100% { transform: scale(1) }
+        }
+        .hidden { display: none }
+        h2 { color: #8b0046; text-shadow: 0 0 10px white; }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div id="step1"><div style="font-size:50px">💗</div><h2>انتي غزل؟</h2></div>
+        
+        <div id="step2" class="hidden">
+            <div class="card"><img class="kitty-img" src="https://i.ibb.co/ynnGFvXk/9b6454edca9f4987914dbd75bed68753.jpg"></div>
+            <button class="btn btn-dark" onclick="nextStep(3)">هلو غزل</button>
+            <button class="btn btn-pink" onclick="nextStep(3)">هلوو</button>
+        </div>
+        
+        <div id="step3" class="hidden">
+            <div class="card"><img class="kitty-img" src="https://i.ibb.co/ycJBLpTY/e0c6a6f098039a957ff2109858da3e24.jpg"></div>
+            <button class="btn btn-dark">غزل عندي سؤال الججج</button>
+            <button class="btn btn-pink" onclick="nextStep(4)">شنو هو؟</button>
+        </div>
+        
+        <div id="step4" class="hidden">
+            <div class="card"><img class="kitty-img" src="https://i.ibb.co/39vCqZ4H/77c3691247a3c02cb5f9c3c714506931.jpg"></div>
+            <button class="btn btn-dark">😅 بس مستحية اسألك اياه</button>
+            <button class="btn btn-pink" onclick="nextStep(5)">اسألينيي</button>
+        </div>
+        
+        <div id="step5" class="hidden">
+            <div class="card"><img class="kitty-img" src="https://i.ibb.co/3msF7666/1fdaf156644ed78732eac60515163024.jpg"></div>
+            <button class="btn btn-dark">تحبين عفيف لو لاا؟</button>
+            <button class="btn btn-pink" onclick="nextStep(6)">ها؟ 😊</button>
+        </div>
+        
+        <div id="step6" class="hidden">
+            <div class="card"><img class="kitty-img" src="https://i.ibb.co/Pv6dkzWq/a90923e878bf3870a79fb42d8b1b28ba.jpg"></div>
+            <button class="btn btn-dark">شنو هاا 😊 تحبين عفيف لو لا؟</button>
+            <button class="btn btn-pink" onclick="nextStep(7)">مدري</button>
+        </div>
+        
+        <div id="step7" class="hidden">
+            <div class="card"><img class="kitty-img" src="https://i.ibb.co/kgQpfjMz/7cc8583699fabfe8439e6aa3979c41f9.jpg"></div>
+            <button class="btn btn-dark">😊 اذا تحبين عفيف دوسي على القلب</button>
+            <div class="big-heart" onclick="alert('وأنا كمان بحبك يا غزل ♥️')">♥</div>
+        </div>
+    </div>
+    <script>
+        // انشاء قلوب متحركة باستمرار
+        const heartsContainer = document.getElementById('hearts');
+        const heartEmojis = ['💖', '💕', '💗', '💝', '💘', '💓', '💞', '💟'];
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+        
+        // قلب جديد كل 300 ملي ثانية
+        setInterval(createHeart, 300);
+        
+        setTimeout(()=>{nextStep(2)},2000);
+        function nextStep(s){
+            for(let i=1;i<=7;i++){
+                document.getElementById('step'+i).classList.add('hidden')
+            }
+            document.getElementById('step'+s).classList.remove('hidden')
+        }
+    </script>
+</body>
+</html>
